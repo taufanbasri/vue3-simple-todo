@@ -5,14 +5,19 @@
         <h5 class="card-title">SIMPLE TODO APP</h5>
         <div class="row">
           <div class="col-10">
-            <input v-model="todo" @keyup.enter="add" type="text" class="form-control" />
+            <input
+              v-model="todo"
+              @keyup.enter="add"
+              type="text"
+              class="form-control"
+            />
           </div>
           <div class="col-2">
             <button @click="add" class="btn btn-success">Add</button>
           </div>
         </div>
 
-        <todo-list :todos="todos"></todo-list>
+        <todo-list :todos="todos" @delete="deleteTodo"></todo-list>
       </div>
     </div>
   </div>
@@ -35,6 +40,9 @@ export default {
     add() {
       this.todos.unshift(this.todo);
       this.todo = "";
+    },
+    deleteTodo(todoIndex) {
+      this.todos = this.todos.filter((todo, index) => index != todoIndex);
     },
   },
 };
