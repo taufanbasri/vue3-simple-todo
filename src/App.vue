@@ -43,6 +43,11 @@ export default {
       todos: [],
     };
   },
+  mounted() {
+    if (localStorage.getItem('todos') != null) {
+     this.todos = JSON.parse(localStorage.getItem("todos")); 
+    }
+  },
   computed: {
     totalTodo() {
       return this.todos.length;
@@ -55,9 +60,12 @@ export default {
         isDone: false,
       });
       this.todo = "";
+      this.saveToLocalStorage();
     },
     deleteTodo(todoIndex) {
       this.todos = this.todos.filter((todo, index) => index != todoIndex);
+
+      this.saveToLocalStorage();
     },
     done(todoIndex) {
       console.log("done");
@@ -68,6 +76,11 @@ export default {
 
         return item;
       });
+
+      this.saveToLocalStorage();
+    },
+    saveToLocalStorage() {
+      localStorage.setItem("todos", JSON.stringify(this.todos));
     },
   },
 };
