@@ -1,21 +1,39 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">SIMPLE TODO APP</h5>
+        <div class="row">
+          <div class="col-10">
+            <input v-model="todo" type="text" class="form-control" />
+          </div>
+          <div class="col-2">
+            <button @click="add" class="btn btn-success">Add</button>
+          </div>
+        </div>
+
+        <div>
+          <ul class="list-group mt-4">
+            <li v-for="todo in todos" :key="todo" class="list-group-item">{{ todo }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<script>
+export default {
+  data() {
+    return {
+      todo: "",
+      todos: [],
+    };
+  },
+  methods: {
+    add() {
+      this.todos.push(this.todo);
+    },
+  },
+};
+</script>
