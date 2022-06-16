@@ -5,25 +5,26 @@
         <h5 class="card-title">SIMPLE TODO APP</h5>
         <div class="row">
           <div class="col-10">
-            <input v-model="todo" type="text" class="form-control" />
+            <input v-model="todo" @keyup.enter="add" type="text" class="form-control" />
           </div>
           <div class="col-2">
             <button @click="add" class="btn btn-success">Add</button>
           </div>
         </div>
 
-        <div>
-          <ul class="list-group mt-4">
-            <li v-for="todo in todos" :key="todo" class="list-group-item">{{ todo }}</li>
-          </ul>
-        </div>
+        <todo-list :todos="todos"></todo-list>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import TodoList from "./components/TodoList.vue";
+
 export default {
+  components: {
+    TodoList,
+  },
   data() {
     return {
       todo: "",
@@ -32,7 +33,8 @@ export default {
   },
   methods: {
     add() {
-      this.todos.push(this.todo);
+      this.todos.unshift(this.todo);
+      this.todo = "";
     },
   },
 };
