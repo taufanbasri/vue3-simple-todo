@@ -17,7 +17,9 @@
           </div>
         </div>
 
-        <todo-list :todos="todos" @delete="deleteTodo"></todo-list>
+        <todo-list :todos="todos" @delete="deleteTodo" class="mb-2"></todo-list>
+
+        <small>Total Todo: {{ totalTodo }}</small>
       </div>
     </div>
   </div>
@@ -35,6 +37,11 @@ export default {
       todo: "",
       todos: [],
     };
+  },
+  computed: {
+    totalTodo() {
+      return this.todos.length;
+    },
   },
   methods: {
     add() {
