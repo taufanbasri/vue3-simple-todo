@@ -17,7 +17,12 @@
           </div>
         </div>
 
-        <todo-list :todos="todos" @delete="deleteTodo" class="mb-2"></todo-list>
+        <todo-list
+          :todos="todos"
+          @delete="deleteTodo"
+          @done="done"
+          class="mb-2"
+        ></todo-list>
 
         <small>Total Todo: {{ totalTodo }}</small>
       </div>
@@ -45,11 +50,24 @@ export default {
   },
   methods: {
     add() {
-      this.todos.unshift(this.todo);
+      this.todos.unshift({
+        activity: this.todo,
+        isDone: false,
+      });
       this.todo = "";
     },
     deleteTodo(todoIndex) {
       this.todos = this.todos.filter((todo, index) => index != todoIndex);
+    },
+    done(todoIndex) {
+      console.log("done");
+      this.todos = this.todos.filter((item, index) => {
+        if (index == todoIndex) {
+          item.isDone = !item.isDone;
+        }
+
+        return item;
+      });
     },
   },
 };
